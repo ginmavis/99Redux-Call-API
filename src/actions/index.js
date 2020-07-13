@@ -1,5 +1,6 @@
 import * as Types from "./../constants/ActionTypes";
 import callApi from "./../utils/apiCaller";
+
 export const actFetchProductsRequest = () => {
   return (dispatch) => {
     // phải có dữ liệu thì mới dispatch được
@@ -27,4 +28,18 @@ export const actDeleteProductsRequest = (id) => {
 
 export const actDeleteProduct = (id) => {
   return { type: Types.DELETE_PRODUCT, id };
+};
+
+export const actAddProductRequest = (product) => {
+  return (dispatch) => {
+    return callApi(`products`, "POST", product).then((res) => {
+      dispatch(actAddProduct(res.data));
+    });
+  };
+};
+export const actAddProduct = (product) => {
+  return {
+    type: Types.ADD_PRODUCT,
+    product,
+  };
 };

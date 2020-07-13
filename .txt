@@ -11,6 +11,9 @@
     - Thay đổi trong index
 101 
     - Update chức năng xóa
-    - 
+    - ProductListPage
 
-
+102
+    - liên kiết api trong store
+    - gọi api xử lí thêm trong sever  rồi mới add vào state của store
+    - sau đó render ra
