@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+table tr th {
+  text-align: center;
+}
+table tr td {
+  text-align: center;
+  vertical-align: middle !important;
+}
