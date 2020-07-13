@@ -1,0 +1,16 @@
+99. redux & callApi
+    -mapStateToProps: lấy tất cả trong state products 
+    - mapDispatchToProps : đẩy tất cả data trong db lên store 
+    - chay render () - chay didmount - render data
+100 
+    - Người ta k dùng cách gọi api trong componendidmount
+    - gọi trong action (sẽ bị lỗi aync action nếu k dùng middle ware)
+    - sử dụng redux-thunk để trì hoãn việc dispatch
+    - fetch dữ liệu xong mới dispatch 
+    - add middleware redux-thunk (npm install redux-thunk --save)
+    - Thay đổi trong index
+101 
+    - Update chức năng xóa
+    - 
+
+

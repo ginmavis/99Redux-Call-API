@@ -3,6 +3,9 @@ import ProductList from "../../components/ProductList/ProductList";
 import ProductItem from "../../components/ProductItem/ProductItem";
 import callApi from "./../../utils/apiCaller";
 import { Link } from "react-router-dom";
+import { actFetchProductsRequest } from "./../../actions/";
+import { connect } from "react-redux";
+
 class ProductListPage extends Component {
   constructor(props) {
     super(props);
@@ -12,12 +15,15 @@ class ProductListPage extends Component {
   }
 
   componentDidMount() {
-    // axios config
-    callApi("products", "GET", null).then((res) => {
-      this.setState({
-        products: res.data,
-      });
-    });
+    // c1 gọi thẳng api
+    // // axios config
+    // callApi("products", "GET", null).then((res) => {
+    //   // day data vao store
+    //   this.props.fetchAllProducts(res.data);
+    // });
+
+    // c2 dùng action và middleware
+    this.props.fetchAllProducts();
   }
   onDelete = (id) => {
     var { products } = this.state;
@@ -41,8 +47,8 @@ class ProductListPage extends Component {
     return result;
   };
   render() {
-    // var { products } = this.props;
-    var { products } = this.state;
+    var { products } = this.props;
+
     return (
       <div className="col-xs-1-12">
         <Link to="/product/add" className="btn my-4 btn-primary">
@@ -70,4 +76,17 @@ class ProductListPage extends Component {
   }
 }
 
-export default ProductListPage;
+const mapStateToProps = (state) => {
+  return {
+    products: state.products,
+  };
+};
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    fetchAllProducts: (products) => {
+      dispatch(actFetchProductsRequest(products));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductListPage);
