@@ -16,3 +16,15 @@ export const actFetchProducts = (products) => {
     //  có thể viết payload : products
   };
 };
+
+export const actDeleteProductsRequest = (id) => {
+  return (dispatch) => {
+    return callApi(`products/${id}`, "DELETE", null).then((res) => {
+      dispatch(actDeleteProduct(id));
+    });
+  };
+};
+
+export const actDeleteProduct = (id) => {
+  return { type: Types.DELETE_PRODUCT, id };
+};

@@ -1,19 +1,15 @@
 import React, { Component } from "react";
 import ProductList from "../../components/ProductList/ProductList";
 import ProductItem from "../../components/ProductItem/ProductItem";
-import callApi from "./../../utils/apiCaller";
+// import callApi from "./../../utils/apiCaller";
 import { Link } from "react-router-dom";
-import { actFetchProductsRequest } from "./../../actions/";
+import {
+  actFetchProductsRequest,
+  actDeleteProductsRequest,
+} from "./../../actions/";
 import { connect } from "react-redux";
 
 class ProductListPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      products: [],
-    };
-  }
-
   componentDidMount() {
     // c1 gọi thẳng api
     // // axios config
@@ -26,26 +22,9 @@ class ProductListPage extends Component {
     this.props.fetchAllProducts();
   }
   onDelete = (id) => {
-    var { products } = this.state;
-    callApi(`products/${id}`, "DELETE", null).then((res) => {
-      var index = this.findIndex(products, id);
-      if (index !== -1) {
-        products.splice(index, 1);
-        this.setState({
-          products: products,
-        });
-      }
-    });
+    this.props.onDeleteProduct(id);
   };
-  findIndex = (products, id) => {
-    var result = -1;
-    products.forEach((product, index) => {
-      if (product.id === id) {
-        result = index;
-      }
-    });
-    return result;
-  };
+
   render() {
     var { products } = this.props;
 
@@ -85,6 +64,9 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     fetchAllProducts: (products) => {
       dispatch(actFetchProductsRequest(products));
+    },
+    onDeleteProduct: (id) => {
+      dispatch(actDeleteProductsRequest(id));
     },
   };
 };
