@@ -14,6 +14,40 @@
     - ProductListPage
 
 102
+    - chức năng thêm
     - liên kiết api trong store
     - gọi api xử lí thêm trong sever  rồi mới add vào state của store
     - sau đó render ra
+103 
+    - chức năng sửa
+    - gọi lên sevre theo id (lấy trên url)
+    - lấy đc data theo id
+    - lưu data lấy được vào store(itemEditing)
+    - tạo reduser để quản lý sản phẩm đang edit 
+    
+    - gọi onEditProduct(id) trong để đẩy đối tượng cần edit 
+    lên store thông qua mapDispatchToProps
+    - vì dùng    this.props.onEditProduct(id); chưa có setState nên 
+    khi render sẽ khi reload khi có đối tượng
+    - dùng hàm componentWillReceiveProps sau khi lấy đối tượng cần edit 
+    qua mapStateToProps trong productActionPage
+    - setState sẽ đc reload sau render 
+    
+    componentWillReceiveProps(nextProps) {
+        console.log("willmount");
+        if (nextProps && nextProps.itemEditing) {
+        var { itemEditing } = nextProps;
+        this.setState({
+            id: itemEditing.id,
+            txtName: itemEditing.name,
+            txtPrice: itemEditing.price,
+            chkbStatus: itemEditing.status,
+        });
+        }
+    }
+
+    - hàm Update sau khi chỉnh sửa nội dung(products.js)
+    - tim index trên store ,cập nhật theo index
+    - lấy id ở action của product (product/reducers)
+    -   
+

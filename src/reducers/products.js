@@ -26,6 +26,10 @@ const products = (state = initialState, action) => {
     case Types.ADD_PRODUCT:
       state.push(action.product);
       return [...state];
+    case Types.UPDATE_PRODUCT:
+      index = findIndex(state, products.id);
+      state[index] = products;
+      return [...state];
     default:
       return [...state];
   }
